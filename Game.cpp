@@ -90,7 +90,14 @@ void Game::Render() const
 		Console::SetCursorPosition(WINDOW_WIDTH / 2 - 16, WINDOW_HEIGHT / 2);
 		std::cout << "You win! Press 'R' to play again.";
 	}
+	else if (ball.y_position >= WINDOW_HEIGHT - 1)
+	{
+		Console::SetCursorPosition(WINDOW_WIDTH / 2 - 16, WINDOW_HEIGHT / 2);
+		std::cout << "You lose. Press 'R' to play again.";
+	}
+
 	Console::Lock(false);
+
 }
 
 void Game::CheckCollision()
@@ -109,6 +116,10 @@ void Game::CheckCollision()
 				bricks.erase(bricks.begin() + i);
 				i--; // Adjust index after removal
 			}
+		}
+		if (ball.y_position >= WINDOW_HEIGHT - 1)
+		{
+			ball.moving = false;
 		}
 	}
 
