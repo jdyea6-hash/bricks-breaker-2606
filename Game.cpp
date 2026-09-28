@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "Game.h"
 
+
 Game::Game()
 {
 	Reset();
@@ -20,12 +21,21 @@ void Game::Reset()
 	ResetBall();
 
 	// TODO #2 - Add this brick and 4 more bricks to the vector
+	
+	Box brick;
+
 	brick.width = 10;
 	brick.height = 2;
 	brick.x_position = 0;
 	brick.y_position = 5;
 	brick.doubleThick = true;
 	brick.color = ConsoleColor::DarkGreen;
+
+	for (int i = 0; i < 5; i++)
+	{
+		brick.x_position = i * 12;
+		bricks.push_back(brick);
+	}
 }
 
 void Game::ResetBall()
@@ -69,12 +79,16 @@ void Game::Render() const
 	ball.Draw();
 
 	// TODO #3 - Update render to render all bricks
-	brick.Draw();
+	
+	for (int i = 0; i < bricks.size(); i++)
+	{
+		bricks[i].Draw();
+	}
 
 	Console::Lock(false);
 }
 
-void Game::CheckCollision()
+/*void Game::CheckCollision()
 {
 	// TODO #4 - Update collision to check all bricks
 	if (brick.Contains(ball.x_position + ball.x_velocity, ball.y_position + ball.y_velocity))
